@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI SEO – The Future of Search Optimization</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ================= HEADER ================= */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(11,15,26,0.75);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .logo span {
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      opacity: 0.9;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    .nav-cta {
+      padding: 0.55rem 1.1rem;
+      border-radius: 0.6rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 1.5rem;
+        background: rgba(15,23,42,0.95);
+        backdrop-filter: blur(12px);
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        display: none;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      }
+      .nav-links.show { display: flex; }
+    }
+
+
+    :root {
+      --bg-dark: #0b0f1a;
+      --bg-light: #0f172a;
+      --primary: #4f46e5;
+      --secondary: #22d3ee;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --card-bg: rgba(255,255,255,0.06);
+      --glass: blur(14px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, #111827, var(--bg-dark));
+      color: var(--text-main);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ================= HERO ================= */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 4rem 1.5rem;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(600px circle at 20% 20%, rgba(79,70,229,0.35), transparent 40%),
+        radial-gradient(500px circle at 80% 30%, rgba(34,211,238,0.25), transparent 45%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      max-width: 1100px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.9rem 1.6rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(79,70,229,0.35);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--text-main);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+
+    /* ================= SECTIONS ================= */
+    section {
+      padding: 5rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: auto;
+    }
+
+    /* ================= CARDS ================= */
+    .grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: var(--glass);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(79,70,229,0.6);
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 0.75rem;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      margin-bottom: 1.2rem;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ================= COMPARISON ================= */
+    .comparison {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-bg);
+      backdrop-filter: var(--glass);
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 1.2rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    th {
+      background: rgba(79,70,229,0.15);
+      font-weight: 700;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    /* ================= CTA ================= */
+    .final-cta {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(79,70,229,0.25), rgba(34,211,238,0.25));
+      border-radius: 2rem;
+      padding: 4rem 2rem;
+    }
+
+    .final-cta h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+    }
+
+    .final-cta p {
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+
+
+
+
+
+
+    .site-footer {
+  background: radial-gradient(circle at top, #0b0f1a, #020617);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 4rem 1.5rem 2rem;
+  margin-top: 6rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem;
+}
+
+.footer-brand h3 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  margin-bottom: 0.8rem;
+}
+
+.footer-brand span {
+  background: linear-gradient(90deg, #22d3ee, #4f46e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-brand p {
+  color: #9ca3af;
+  font-size: 0.95rem;
+  max-width: 300px;
+}
+
+.footer-links h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  display: block;
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin-bottom: 0.6rem;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #e5e7eb;
+}
+
+.footer-bottom {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-bottom p {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.footer-socials a {
+  font-size: 1.1rem;
+  margin-left: 0.8rem;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.footer-socials a:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="site-header">
+    <div class="nav-container">
+      <div class="logo">AI<span>SEO</span></div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#">Home</a>
+        <a href="#what">What is AI SEO</a>
+        <a href="#why">Why 2026</a>
+        <a href="#compare">Comparison</a>
+        <a href="#contact" class="nav-cta">Get Started</a>
+      </nav>
+      <div class="menu-toggle" id="menuToggle">☰</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="badge">AI SEO • The 2026 Standard</span>
+      <h1>The Future of Rankings is <span>AI‑Driven SEO</span></h1>
+      <p>
+        AI SEO combines artificial intelligence, machine learning, and predictive analytics
+        to optimize search visibility across Google, AI assistants, and next‑generation search engines.
+      </p>
+      <div class="cta-group">
+        <button class="btn btn-primary">Get Started</button>
+        <button class="btn btn-secondary">Learn How It Works</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IS AI SEO -->
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <h2>What is AI SEO?</h2>
+        <p>
+          AI SEO is the evolution of traditional search optimization, where intelligent systems
+          analyze user intent, behavior, and content performance in real time to make smarter decisions.
+        </p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="icon">🤖</div>
+          <h3>Intent‑Based Optimization</h3>
+          <p>
+            AI understands search intent beyond keywords, optimizing content for meaning,
+            context, and conversational queries.
+          </p>
+        </div>
+        <div class="card">
+          <div class="icon">📊</div>
+          <h3>Predictive Ranking Models</h3>
+          <p>
+            Machine learning predicts ranking changes before they happen,
+            allowing proactive optimization strategies.
+          </p>
+        </div>
+        <div class="card">
+          <div class="icon">⚡</div>
+          <h3>Real‑Time Adaptation</h3>
+          <p>
+            AI SEO systems continuously adapt content, structure, and signals
+            based on live search trends.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY 2026 -->
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>Why AI SEO Dominates in 2026</h2>
+      <p>
+        Search engines are no longer just indexes. They are AI systems themselves.
+        Optimization must speak the same language.
+      </p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>AI-First Search Engines</h3>
+        <p>
+          By 2026, search platforms prioritize AI-generated answers, summaries,
+          and entity understanding over simple blue links.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Multi-Platform Discovery</h3>
+        <p>
+          Users search via voice, chatbots, AI assistants, and visual tools.
+          AI SEO optimizes visibility across all of them.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Speed & Scale</h3>
+        <p>
+          Manual SEO cannot keep up with algorithm updates.
+          AI reacts instantly, at massive scale.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Personalized Results</h3>
+        <p>
+          Search results are personalized by behavior and context.
+          AI SEO aligns content with these dynamic user profiles.
+        </p>
+      </div>
+
+      <!-- NEW CARD 1 -->
+      <div class="card">
+        <h3>Generative Search Answers</h3>
+        <p>
+          AI-powered search engines now generate direct answers and summaries.
+          AI SEO ensures your brand appears inside those AI-generated responses.
+        </p>
+      </div>
+
+      <!-- NEW CARD 2 -->
+      <div class="card">
+        <h3>Data-Driven Decisions</h3>
+        <p>
+          AI SEO processes massive datasets to decide what to optimize, when to act,
+          and how to outperform competitors with precision.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- WHY BETTER -->
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <h2>Why AI SEO is Better Than Traditional SEO</h2>
+        <p>
+          AI SEO replaces guesswork with data‑driven intelligence.
+        </p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Smarter Content Strategy</h3>
+          <p>
+            AI identifies content gaps, semantic relationships, and optimal formats
+            that humans often miss.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Automated Optimization</h3>
+          <p>
+            From meta data to internal linking and schema,
+            AI handles optimization automatically.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Higher ROI</h3>
+          <p>
+            Faster results, lower manual effort, and better targeting
+            mean significantly higher returns.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <h2>AI SEO vs Google SEO</h2>
+        <p>
+          Traditional Google SEO focuses on rules.
+          AI SEO focuses on understanding.
+        </p>
+      </div>
+
+      <div class="comparison">
+        <table>
+          <thead>
+            <tr>
+              <th>Aspect</th>
+              <th>Traditional Google SEO</th>
+              <th>AI SEO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Keyword Strategy</td>
+              <td>Exact & partial keywords</td>
+              <td>Intent, entities & semantics</td>
+            </tr>
+            <tr>
+              <td>Content Optimization</td>
+              <td>Manual & rule‑based</td>
+              <td>Automated & adaptive</td>
+            </tr>
+            <tr>
+              <td>Response to Updates</td>
+              <td>Reactive</td>
+              <td>Predictive</td>
+            </tr>
+            <tr>
+              <td>Scalability</td>
+              <td>Limited by human effort</td>
+              <td>Highly scalable with AI</td>
+            </tr>
+            <tr>
+              <td>Future Readiness</td>
+              <td>Search‑engine specific</td>
+              <td>Search + AI assistants</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section>
+    <div class="container">
+      <div class="final-cta">
+        <h2>Ready to Lead Search in 2026?</h2>
+        <p>
+          AI SEO is not an option anymore. It is the foundation
+          for visibility in an AI‑powered internet.
+        </p>
+        <button class="btn btn-primary">Start AI SEO Today</button>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    
+    <!-- Brand -->
+    <div class="footer-brand">
+      <h3>AI<span>SEO</span></h3>
+      <p>
+        AI-powered search optimization built for 2026 and beyond.
+        Rank across search engines, AI assistants, and generative platforms.
+      </p>
+    </div>
+
+    <!-- Links -->
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <a href="#">AI SEO</a>
+      <a href="#">How It Works</a>
+      <a href="#">Features</a>
+      <a href="#">Pricing</a>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <a href="#">Blog</a>
+      <a href="#">AI Search Trends</a>
+      <a href="#">Case Studies</a>
+      <a href="#">Documentation</a>
+    </div>
+
+    <div class="footer-links">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer-bottom">
+    <p>© 2026 BluMart Global LLP All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="#">🌐</a>
+      <a href="#">🐦</a>
+      <a href="#">💼</a>
+      <a href="#">📺</a>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+ 
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  </script>
+
+  <script>
+    // Simple entrance animation
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'all 0.6s ease';
+      observer.observe(card);
+    });
+  </script>
+
+</body>
+</html>
